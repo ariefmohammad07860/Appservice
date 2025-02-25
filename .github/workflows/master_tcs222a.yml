@@ -1,34 +1,31 @@
-name: Deploy Node.js & React App to Azure
+name: Deploy to Azure App Service
 
 on:
   push:
     branches:
-      - main
+      - master  # Triggers deployment when pushing to the master branch
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '18' # Change this to your Node.js version
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm install
-        working-directory: client # Change this if your frontend is in a different folder
 
-      - name: Build React App
-        run: npm run build
-        working-directory: client
+      - name: Build Project
+        run: npm run build  # If applicable
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: "your-app-service-name"
+          app-name: "YOUR_APP_SERVICE_NAME" # Replace with your Azure App Service name
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: client/build
+          package: .  # Deploy the current directory
