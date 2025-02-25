@@ -1,5 +1,25 @@
-- name: Build React App
-  run: |
-    cd client
-    npm install
-    npm run build
+name: Build React App
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies and build React app
+        run: |
+          cd client
+          npm install
+          npm run build
