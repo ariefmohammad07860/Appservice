@@ -1,0 +1,11 @@
+# Ignore environment variables
+# Logs
+logs/
+*.log
+
+# Environment
+.env
+.env.local
+
+# Build output
+dist/
