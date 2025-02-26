@@ -16,10 +16,11 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 22
+          cache: 'npm'  # Enables caching for faster builds
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci  # Faster and more reliable than `npm install`
 
       - name: Build React app
         run: npm run build
